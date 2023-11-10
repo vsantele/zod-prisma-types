@@ -9,7 +9,7 @@ export const writeCountArgs = (
   }: ContentWriterOptions,
   model: ExtendedDMMFOutputType,
 ) => {
-  const { useMultipleFiles, prismaClientPath, prismaVersion } =
+  const { useMultipleFiles, prismaClientPath, prismaVersion, useEsm } =
     dmmf.generatorConfig;
 
   if (useMultipleFiles && !getSingleFileContent) {
@@ -17,7 +17,7 @@ export const writeCountArgs = (
     writeImport('type { Prisma }', prismaClientPath);
     writeImport(
       `{ ${model.name}CountOutputTypeSelectSchema }`,
-      `./${model.name}CountOutputTypeSelectSchema`,
+      `./${model.name}CountOutputTypeSelectSchema${useEsm ? '.js' : ''}`,
     );
   }
 

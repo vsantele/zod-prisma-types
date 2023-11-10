@@ -5,12 +5,15 @@ export const writeNullableJsonValue = ({
   dmmf,
   getSingleFileContent = false,
 }: ContentWriterOptions) => {
-  const { useMultipleFiles } = dmmf.generatorConfig;
+  const { useMultipleFiles, useEsm } = dmmf.generatorConfig;
 
   if (useMultipleFiles && !getSingleFileContent) {
     writeImport('{ z }', 'zod');
-    writeImport('transformJsonNull', './transformJsonNull');
-    writeImport('JsonValueSchema', './JsonValueSchema');
+    writeImport(
+      'transformJsonNull',
+      `./transformJsonNull${useEsm ? '.js' : ''}`,
+    );
+    writeImport('JsonValueSchema', `./JsonValueSchema${useEsm ? '.js' : ''}`);
   }
 
   writer

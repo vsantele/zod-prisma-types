@@ -20,7 +20,8 @@ export const writeModelOrType = (
   }: ContentWriterOptions,
   model: ExtendedDMMFModel,
 ) => {
-  const { useMultipleFiles, createRelationValuesTypes } = dmmf.generatorConfig;
+  const { useMultipleFiles, createRelationValuesTypes, useEsm } =
+    dmmf.generatorConfig;
 
   if (useMultipleFiles && !getSingleFileContent) {
     writeImport('{ z }', 'zod');
@@ -37,7 +38,7 @@ export const writeModelOrType = (
       if (model.hasOptionalJsonFields) {
         writeImport(
           `type { JsonValueType }`,
-          `../inputTypeSchemas/JsonValueSchema`,
+          `../inputTypeSchemas/JsonValueSchema${useEsm ? '.js' : ''}`,
         );
       }
 

@@ -12,20 +12,25 @@ export const writeArgs = (
   }: ContentWriterOptions,
   model: ExtendedDMMFOutputType,
 ) => {
-  const { useMultipleFiles, prismaClientPath, inputTypePath, prismaVersion } =
-    dmmf.generatorConfig;
+  const {
+    useMultipleFiles,
+    prismaClientPath,
+    inputTypePath,
+    prismaVersion,
+    useEsm,
+  } = dmmf.generatorConfig;
 
   if (useMultipleFiles && !getSingleFileContent) {
     writeImport('{ z }', 'zod');
     writeImport('type { Prisma }', prismaClientPath);
     writeImport(
       `{ ${model.name}SelectSchema }`,
-      `../${inputTypePath}/${model.name}SelectSchema`,
+      `../${inputTypePath}/${model.name}SelectSchema${useEsm ? '.js' : ''}`,
     );
     if (model.hasRelationField()) {
       writeImport(
         `{ ${model.name}IncludeSchema }`,
-        `../${inputTypePath}/${model.name}IncludeSchema`,
+        `../${inputTypePath}/${model.name}IncludeSchema${useEsm ? '.js' : ''}`,
       );
     }
   }
