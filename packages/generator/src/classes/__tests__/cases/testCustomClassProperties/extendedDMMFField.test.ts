@@ -26,6 +26,7 @@ export const DEFAULT_GENERATOR_CONFIG: GeneratorConfig = {
   writeBarrelFiles: true,
   decimalJSInstalled: false,
   useTypeAssertions: false,
+  useEsm: false,
 };
 
 describe('testSimpleModelNoValidators', async () => {

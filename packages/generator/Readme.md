@@ -49,6 +49,7 @@ Be aware that some generator options have been removed, a few new ones have been
   - [`writeNullishInModelTypes`](#writenullishinmodeltypes)
   - [`useTypeAssertions`](#usetypeassertions)
   - [`prismaClientPath`](#prismaclientpath)
+  - [`useEsm`](#useesm)
 - [Skip schema generation](#skip-schema-generation)
 - [Custom Enums](#custom-enums)
 - [Json null values](#json-null-values)
@@ -588,6 +589,19 @@ By default the prisma client path is inferred from the `output` path provided in
 generator zod {
   // ...rest of config
   prismaClientPath = "./path/to/prisma/client"
+}
+```
+
+### `useEsm`
+
+> default: false
+
+To generate esm compliant files you can set this option to `true`. This will add a `.js` at the end of relative import. You must set `prismaClientPath` with an ending `/index.js` if you use a custom path.
+
+```prisma
+generator zod {
+  // ...rest of config
+  useEsm = true
 }
 ```
 
